@@ -20,7 +20,7 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
     const position: Position = { zeile, spalte }
  
     if (ausgewaehlt === null) {
-      if (figurAn(position)) ausgewaehlt = position   // nur Felder mit Figur wählen
+      if (figurAn(position)) ausgewaehlt = position   
       return
     }
     if (ausgewaehlt.zeile !== zeile || ausgewaehlt.spalte !== spalte) {
