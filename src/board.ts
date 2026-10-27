@@ -1,4 +1,5 @@
 import type { Brett, Farbe, Feld, Figur, FigurType, Position } from "./types.js"
+import { turmMove, bauerMove } from "./regel.js"
  
 export const brett: Brett = startBrett()
  
@@ -29,14 +30,21 @@ export function figurAn({ zeile, spalte }: Position): Feld {
 }
  
 export function bewegeFigur(von: Position, nach: Position): void {
-  const figur = figurAn(von)
+ const figur = figurAn(von)
+ if(figur?.typ=="B"){
+  if(bauerMove(von,nach)==false)return
+ }
+ if(figur?.typ=="T"){
+  if(turmMove(von,nach)==false)return
+ }
+     
   const vonReihe = brett[von.zeile]
   const nachReihe = brett[nach.zeile]
+  console.log(von)
   if (!figur || !vonReihe || !nachReihe) return
   nachReihe[nach.spalte] = figur
   vonReihe[von.spalte] = null
 }
- 
 const SYMBOLE: Record<Farbe, Record<FigurType, string>> = {
   weiss:   { K: "♔", D: "♕", T: "♖", L: "♗", S: "♘", B: "♙" },
   schwarz: { K: "♚", D: "♛", T: "♜", L: "♝", S: "♞", B: "♟" },
