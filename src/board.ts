@@ -1,5 +1,5 @@
 import type { Brett, Farbe, Feld, Figur, FigurType, Position } from "./types.js"
-import { turmMove, bauerMove } from "./regel.js"
+import { turmMove, bauerMove /*,läuferMove*/ } from "./regel.js"
  
 export const brett: Brett = startBrett()
  
@@ -35,6 +35,9 @@ export function bewegeFigur(von: Position, nach: Position): void {
   if(bauerMove(von,nach)==false)return
  }
  if(figur?.typ=="T"){
+  if(turmMove(von,nach)==false)return
+ }
+ if(figur?.typ=="L"){
   if(turmMove(von,nach)==false)return
  }
      

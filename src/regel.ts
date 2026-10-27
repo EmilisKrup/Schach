@@ -100,3 +100,13 @@ const figur = figurAn(von)
             }
     return geht = true
 }
+
+/*export function läuferMove(von: Position, nach: Position): boolean{
+    const figur = figurAn(von)
+    let geht: boolean =false
+        if(figur?.typ==="T" && figur?.farbe ==="weiss"){
+
+    }
+    return geht = true
+}
+    /*
