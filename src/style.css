@@ -1,0 +1,16 @@
+.brett.aktiv {
+  display: grid;
+  grid-template-columns: repeat(8, 64px);
+  grid-template-rows: repeat(8, 64px);
+  width: fit-content;
+  border: 2px solid #333;
+}
+.feld {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  user-select: none;
+}
+.hell   { background: #f0d9b5; }
+.dunkel { background: #b58863; }
