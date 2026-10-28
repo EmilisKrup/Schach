@@ -1,8 +1,8 @@
 import { bewegeFigur, figurAn } from "./board.js"
-import type { Position } from "./types.js"
+import type { Position, Spielzug } from "./types.js"
  
 let ausgewaehlt: Position | null = null
- 
+let amSpielzug: Spielzug = "weiss"
 export function auswahlLoeschen(): void {
   ausgewaehlt = null
 }
@@ -20,14 +20,23 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
     const position: Position = { zeile, spalte }
  
     if (ausgewaehlt === null) {
-      if (figurAn(position)) ausgewaehlt = position   
+      if (figurAn(position) && figurAn(position)?.farbe === amSpielzug) ausgewaehlt = position
+      console.log(ausgewaehlt)
       return
     }
     if (ausgewaehlt.zeile !== zeile || ausgewaehlt.spalte !== spalte) {
-      bewegeFigur(ausgewaehlt, position)
+      if(bewegeFigur(ausgewaehlt, position)){
       neuZeichnen()
+
+      if(amSpielzug==="weiss"){ 
+      amSpielzug="schwarz" 
+      } else{
+       amSpielzug="weiss"
+      }
     }
-    ausgewaehlt = null
+  }
+     ausgewaehlt = null
   })
 }
+
  

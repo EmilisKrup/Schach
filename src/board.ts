@@ -1,5 +1,5 @@
-import type { Brett, Farbe, Feld, Figur, FigurType, Position } from "./types.js"
-import { turmMove, bauerMove /*,läuferMove*/ } from "./regel.js"
+import { /*Bauer,*/ type Brett, type Farbe, type Feld, type Figur, type FigurType, type Position } from "./types.js"
+import { turmMove, bauerMove ,laeuferMove, springerMove, dameMove, koenigMove } from "./regel.js"
  
 export const brett: Brett = startBrett()
  
@@ -12,7 +12,7 @@ export function startBrett(): Brett {
       const typ = reihenfolge[spalte]
       if (typ === undefined) throw new Error("Spalte außerhalb des Bretts")
       if (zeile === 0) reihe.push({ typ, farbe: "schwarz" })
-      else if (zeile === 1) reihe.push({ typ: "B", farbe: "schwarz" })
+      else if (zeile === 1) reihe.push({ typ: "B", farbe: "schwarz" })    //new Bauer( "B", "schwarz")
       else if (zeile === 6) reihe.push({ typ: "B", farbe: "weiss" })
       else if (zeile === 7) reihe.push({ typ, farbe: "weiss" })
       else reihe.push(null)
@@ -29,24 +29,33 @@ export function figurAn({ zeile, spalte }: Position): Feld {
   return brett[zeile]?.[spalte] ?? null
 }
  
-export function bewegeFigur(von: Position, nach: Position): void {
+export function bewegeFigur(von: Position, nach: Position): boolean {
  const figur = figurAn(von)
  if(figur?.typ=="B"){
-  if(bauerMove(von,nach)==false)return
+  if(bauerMove(von,nach)==false)return false
  }
  if(figur?.typ=="T"){
-  if(turmMove(von,nach)==false)return
+  if(turmMove(von,nach)==false)return false
  }
  if(figur?.typ=="L"){
-  if(turmMove(von,nach)==false)return
+  if(laeuferMove(von,nach)==false)return false
  }
-     
+if(figur?.typ=="S"){
+  if(springerMove(von,nach)==false)return false
+ }
+ if(figur?.typ=="D"){
+  if(dameMove(von,nach)==false)return false
+ }
+ if(figur?.typ=="K"){
+  if(koenigMove(von,nach)==false)return false
+ }
+
   const vonReihe = brett[von.zeile]
   const nachReihe = brett[nach.zeile]
-  console.log(von)
-  if (!figur || !vonReihe || !nachReihe) return
+  if (!figur || !vonReihe || !nachReihe) return false
   nachReihe[nach.spalte] = figur
   vonReihe[von.spalte] = null
+  return true
 }
 const SYMBOLE: Record<Farbe, Record<FigurType, string>> = {
   weiss:   { K: "♔", D: "♕", T: "♖", L: "♗", S: "♘", B: "♙" },

@@ -4,6 +4,8 @@
   grid-template-rows: repeat(8, 64px);
   width: fit-content;
   border: 2px solid #333;
+  justify-content: center;
+  align-items: center;
 }
 .feld {
   display: flex;

@@ -4,3 +4,10 @@ export interface Figur { typ: FigurType; farbe: Farbe }
 export type Feld = Figur | null
 export type Brett = Feld[][]
 export type Position = { zeile: number; spalte: number }
+export type Spielzug = Farbe
+/*export class Bauer implements Figur{
+    constructor(public typ: FigurType, public farbe: Farbe){
+
+    }
+}
+*/

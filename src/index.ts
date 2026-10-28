@@ -1,5 +1,5 @@
 import { neuesSpiel, zeichneBrett } from "./board.js"
-import { auswahlLoeschen, initKlicks } from "./move.js"
+import { auswahlLoeschen, initKlicks} from "./move.js"
  
 const container = document.getElementById("brett")
 const startButton = document.getElementById("start")
