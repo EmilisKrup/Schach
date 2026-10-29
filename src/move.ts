@@ -1,5 +1,6 @@
-import { bewegeFigur, figurAn } from "./board.js"
+import { bewegeFigur, figurAn, abgewaehltFeld, ausgewaehltFeld } from "./board.js"
 import type { Position, Spielzug } from "./types.js"
+const containers = document.getElementById("brett")
  
 let ausgewaehlt: Position | null = null
 let amSpielzug: Spielzug = "weiss"
@@ -22,6 +23,7 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
     if (ausgewaehlt === null) {
       if (figurAn(position) && figurAn(position)?.farbe === amSpielzug) ausgewaehlt = position
       console.log(ausgewaehlt)
+      if(ausgewaehlt != null && containers)ausgewaehltFeld(containers, ausgewaehlt)
       return
     }
     if (ausgewaehlt.zeile !== zeile || ausgewaehlt.spalte !== spalte) {
@@ -35,8 +37,11 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
       }
     }
   }
+    if(containers)abgewaehltFeld(containers, ausgewaehlt)
      ausgewaehlt = null
   })
 }
 
+ 
+   
  

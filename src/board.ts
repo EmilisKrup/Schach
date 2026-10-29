@@ -75,4 +75,25 @@ export function zeichneBrett(container: HTMLElement): void {
     })
   })
 }
+
+export function ausgewaehltFeld(container: HTMLElement, ausgewaehlt: Position): void {
+   let zeile = ausgewaehlt.zeile
+   let spalte = ausgewaehlt.spalte
+   const feldZeile = container.querySelector(`[data-zeile="${String(zeile)}"][data-spalte="${String(spalte)}"]`)
+
+   if (figurAn(ausgewaehlt) && feldZeile){
+      feldZeile?.classList.add("gruen")
+      }
+     }
+
+export function abgewaehltFeld(container: HTMLElement, ausgewaehlt: Position): void {
+   let zeile = ausgewaehlt.zeile
+   let spalte = ausgewaehlt.spalte
+   const feldZeile = container.querySelector(`[data-zeile="${String(zeile)}"][data-spalte="${String(spalte)}"]`)
+
+   if (figurAn(ausgewaehlt) && feldZeile){
+      feldZeile?.classList.remove("gruen")
+      }
+     }     
+
 export type { Figur }
