@@ -4,20 +4,17 @@ Ein normales Schachspiel im Browser, geschrieben in TypeScript. Zwei Spieler spi
 Das Projekt setzt alle Bewegungsregeln für jede Figur um.
 Schach, Schachmatt und einige Sonderregeln wurden noch nicht umgesetzt (s. unten).
 
-Funktionen:
+# Funktionen:
 -Brett mit Startaufstellung, das über den Button „Start Game!" gestartet oder neu gestartet wird
 -Figur per Klick auswählen (grüne Markierung), Zielfeld per Klick wählen, erneuter Klick auf dieselbe Figur hebt die Auswahl auf
 -Zugregeln für Bauer, Turm, Läufer, Springer, Dame und König, inklusive Blockierung durch andere Figuren und Schlagen
 -Abwechselnder Zug von Weiß und Schwarz
 
-Technologien:
+# Technologien:
 
 TypeScript, HTML, CSS, Git, Vitest
 
-Die Brett Brettdarstellung entstand mit Unterstützung eines KI-Assistenten,
-die Zugregeln und die Spiellogik habe ich selbst implementiert.
-
-Aufbau:
+# Aufbau:
   types.ts:  Typen
   boars.ts:  Spielbrett, Startaufstellung, Zeichnen des Bretts, Ausführen eines Zuges
   regel.ts:  Zugregeln pro Figur
@@ -29,12 +26,12 @@ Aufbau:
 Das Spielbrett steht als Daten (Array aus Zeilen und Feldern) im Speicher. 
 Ein Zug verändert zuerst diese Daten, danach wird das Brett neu gezeichnet.
 
-Starten des Spieles:
+# Starten des Spieles:
 1. alle Dateien herunterladen
 2. mit tsc alles kompilieren (wird dann automatisch nach /dist kompiliert)
 3. index.html mit einem lokalem Server öffnen (z.B die Extension Live-Server im VS-Code)
 
-Bekannte Einschränkung:
+# Bekannte Einschränkung:
 -König kann nicht geschlagen werden
 Grund --> für die spätere Implementation des Schachs und Schachmattes
 -keine Erkennung von Schach, Schachmatt oder Patt, das Spiel endet also nicht von selbst
@@ -43,7 +40,7 @@ Grund --> für die spätere Implementation des Schachs und Schachmattes
 übergibt nicht den Zug zu Weiß
 -keine klare Ansicht, wie sich die Figuren bewegen dürfen
 
-Geplante:
+# Geplante:
   Kurzfristig:
                  -Status „im Schach" und Schachmatt
                  -Rochade, en passant, Bauernumwandlung
@@ -54,3 +51,8 @@ Geplante:
                   -->erster Entwurf steht als auskommentierter Code in types.ts und board.ts und ist als Vorbereitung gedacht
                  -Überarbeitung der Oberfläche
                  -Backend, z. B. für Online-Partien
+
+# Hinweis zur Entstehung
+
+Teile der Datenstruktur und Darstellung des Bretts entstand mit Unterstützung eines KI-Assistenten.
+Die Zugregeln, die Spiellogik, die Auswahl und die Zugreihenfolge habe ich selbst implementiert.
