@@ -9,7 +9,9 @@ Schach, Schachmatt und einige Sonderregeln wurden noch nicht umgesetzt (s. unten
 -Brett mit Startaufstellung, das über den Button „Start Game!" gestartet oder neu gestartet wird  
 -Figur per Klick auswählen (grüne Markierung), Zielfeld per Klick wählen, erneuter Klick auf dieselbe Figur hebt die Auswahl auf  
 -Zugregeln für Bauer, Turm, Läufer, Springer, Dame und König, inklusive Blockierung durch andere Figuren und Schlagen  
--Abwechselnder Zug von Weiß und Schwarz  
+-Abwechselnder Zug von Weiß und Schwarz
+-Funktionen wie im Schach zu sein, sowie Schachmatt
+
 
 ### Technologien:
 
@@ -35,10 +37,9 @@ Ein Zug verändert zuerst diese Daten, danach wird das Brett neu gezeichnet.
 3. index.html mit einem lokalem Server öffnen (z.B die Extension Live-Server im VS-Code)  
 
 ### Bekannte Einschränkung:
-
--König kann nicht geschlagen werden  
-Grund --> für die spätere Implementation des Schachs und Schachmattes  
--keine Erkennung von Schach, Schachmatt oder Patt, das Spiel endet also nicht von selbst  
+  
+-keine Erkennung von Patt
+-Spiel endet abrupt und man sieht nur in der Konsole, dass Schachmatt gesetzt wurde
 -Rochade, en passant und Bauernumwandlung fehlen  
 -das erneute Klicken auf Start während Schwarz am Zug ist,  
 übergibt nicht den Zug zu Weiß  
@@ -48,7 +49,6 @@ Grund --> für die spätere Implementation des Schachs und Schachmattes
 
 ##### Kurzfristig:
 
--Status "im Schach" und Schachmatt  
 -Rochade, en passant, Bauernumwandlung  
 -Kleinere Verbesserungen an der Bedienung  
 
