@@ -18,6 +18,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -41,5 +42,9 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "noEmitOnError": true,
-  }
+  },
+  "exclude": [
+        "/*.test.ts",
+        "node_modules",
+        "dist"]
 }

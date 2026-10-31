@@ -1,0 +1,24 @@
+{
+  "name": "schach",
+  "version": "1.0.0",
+  "description": "Ein normales Schachspiel im Browser, geschrieben in TypeScript. Zwei Spieler spielen gegenseitig per Mausklick am selben Gerät.  \r Das Projekt setzt alle Bewegungsregeln für jede Figur um.  \r Schach, Schachmatt und einige Sonderregeln wurden noch nicht umgesetzt (s. unten).",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmilisKrup/Schach.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EmilisKrup/Schach/issues"
+  },
+  "homepage": "https://github.com/EmilisKrup/Schach#readme",
+  "devDependencies": {
+    "vitest": "^5.0.5"
+  }
+}

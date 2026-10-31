@@ -1,4 +1,4 @@
-import { bewegeFigur, figurAn, abgewaehltFeld, ausgewaehltFeld } from "./board.js"
+import { bewegeFigur, figurAn, abgewaehltFeld, ausgewaehltFeld, istSchachmatt } from "./board.js"
 import type { Position, Spielzug } from "./types.js"
 const containers = document.getElementById("brett")
  
@@ -9,6 +9,7 @@ export function auswahlLoeschen(): void {
 }
  
 export function initKlicks(container: HTMLElement, neuZeichnen: () => void): void {
+  const controller = new AbortController();
   container.addEventListener("click", (event: MouseEvent) => {
     const ziel = event.target
     if (!(ziel instanceof HTMLElement)) return
@@ -29,17 +30,28 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
     if (ausgewaehlt.zeile !== zeile || ausgewaehlt.spalte !== spalte) {
       if(bewegeFigur(ausgewaehlt, position)){
       neuZeichnen()
-
-      if(amSpielzug==="weiss"){ 
+      
+      if(amSpielzug==="weiss"){
+       if(istSchachmatt("schwarz")){ 
+        console.log("weiß hat gewonnen")
+        controller.abort();
+       }
       amSpielzug="schwarz" 
       } else{
+        if(istSchachmatt("weiss")){ 
+        console.log("schwarz hat gewonnen")
+        controller.abort();
+        }
        amSpielzug="weiss"
+        
       }
     }
   }
     if(containers)abgewaehltFeld(containers, ausgewaehlt)
      ausgewaehlt = null
-  })
+  },
+    {signal: controller.signal} 
+  )
 }
 
  
