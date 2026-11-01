@@ -6,7 +6,7 @@ Schach, Schachmatt und einige Sonderregeln wurden noch nicht umgesetzt (s. unten
 
 ### Funktionen:
 
--Brett mit Startaufstellung, das über den Button „Start Game!" gestartet oder neu gestartet wird  
+-Brett mit Startaufstellung, das über den Button „Start Game!" gestartet oder mit "Neues Spiel!" neugestartet wird  
 -Figur per Klick auswählen (grüne Markierung), Zielfeld per Klick wählen, erneuter Klick auf dieselbe Figur hebt die Auswahl auf  
 -Zugregeln für Bauer, Turm, Läufer, Springer, Dame und König, inklusive Blockierung durch andere Figuren und Schlagen  
 -Abwechselnder Zug von Weiß und Schwarz
@@ -38,22 +38,20 @@ Ein Zug verändert zuerst diese Daten, danach wird das Brett neu gezeichnet.
 
 ### Bekannte Einschränkung:
   
--keine Erkennung von Patt
+(-keine Erkennung von Patt)
 -Spiel endet abrupt und man sieht nur in der Konsole, dass Schachmatt gesetzt wurde
--Rochade, en passant und Bauernumwandlung fehlen  
--das erneute Klicken auf Start während Schwarz am Zug ist,  
-übergibt nicht den Zug zu Weiß  
+-Rochade, en passant und Bauernumwandlung fehlen    
 -keine klare Ansicht, wie sich die Figuren bewegen dürfen  
 
 ### Geplante:
 
 ##### Kurzfristig:
 
--Rochade, en passant, Bauernumwandlung  
+-Rochade  
 -Kleinere Verbesserungen an der Bedienung  
 
 ##### Langfristig:
-
+- en passant
 -Umstellung auf Objektklassen (z. B. new Bauer(...)) statt Figuren als einfache Daten  
 -->erster Entwurf steht als auskommentierter Code in types.ts und board.ts und ist als Vorbereitung gedacht  
 -Überarbeitung der Oberfläche  
