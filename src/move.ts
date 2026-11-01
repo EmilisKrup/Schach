@@ -1,4 +1,4 @@
-import { bewegeFigur, figurAn, abgewaehltFeld, ausgewaehltFeld, istSchachmatt } from "./board.js"
+import { bewegeFigur, figurAn, abgewaehltFeld, ausgewaehltFeld, istSchachmatt, istInUmwandlung } from "./board.js"
 import type { Position, Spielzug } from "./types.js"
 const containers = document.getElementById("brett")
  
@@ -15,7 +15,7 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
     if (!(ziel instanceof HTMLElement)) return
     const feld = ziel.closest<HTMLElement>(".feld")
     if (!feld) return
- 
+    if(istInUmwandlung)return
     const zeile = Number(feld.dataset.zeile)
     const spalte = Number(feld.dataset.spalte)
     if (Number.isNaN(zeile) || Number.isNaN(spalte)) return
@@ -23,7 +23,6 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
  
     if (ausgewaehlt === null) {
       if (figurAn(position) && figurAn(position)?.farbe === amSpielzug) ausgewaehlt = position
-      console.log(ausgewaehlt)
       if(ausgewaehlt != null && containers)ausgewaehltFeld(containers, ausgewaehlt)
       return
     }
@@ -32,16 +31,23 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
       neuZeichnen()
       
       if(amSpielzug==="weiss"){
-       if(istSchachmatt("schwarz")){ 
+       if(istSchachmatt("schwarz")===1){ 
         console.log("weiß hat gewonnen")
         controller.abort();
        }
+       if(istSchachmatt("weiss")===2){
+       console.log("patt")
+       controller.abort();
+    }
       amSpielzug="schwarz" 
       } else{
-        if(istSchachmatt("weiss")){ 
+        if(istSchachmatt("weiss")===1){ 
         console.log("schwarz hat gewonnen")
         controller.abort();
-        }
+        }if(istSchachmatt("weiss")===2){
+        console.log("patt")
+        controller.abort();
+    }
        amSpielzug="weiss"
         
       }

@@ -1,7 +1,12 @@
 import { /*Bauer,*/ type Brett, type Farbe, type Feld, type Figur, type FigurType, type Position } from "./types.js"
 import { turmMove, bauerMove ,laeuferMove, springerMove, dameMove, koenigMove } from "./regel.js"
  
+const containerW = document.getElementById("bauerUmWeiss")
+const containerS = document.getElementById("bauerUmSchwarz")
+const container = document.getElementById("brett")
+export let istInUmwandlung = false
 export const brett: Brett = startBrett()
+let promotionHandler: ((event: MouseEvent) => void) | null = null
  
 export function startBrett(): Brett {
   const reihenfolge: FigurType[] = ["T", "S", "L", "D", "K", "L", "S", "T"]
@@ -82,27 +87,27 @@ export function imSchach(farbe: Farbe): boolean{
   return h
 }
 
-export function istSchachmatt(farbe: Farbe): boolean{
-  let geht: boolean = false
-  if(imSchach(farbe)){
+export function istSchachmatt(farbe: Farbe): number | null{
+  let geht: number | null =  null
     brett.forEach((reihe, zeile) => {
       reihe.forEach((figur: Feld, spalte)=>{
-        if(figur){
+        if(figur?.farbe===farbe){
           for(let h = 0; h<=7; h++){
-            for(let i = 0; i<=7; i++)
-            if(legalerZug({zeile,spalte},{zeile:h,spalte:i}))geht = true
+            for(let i = 0; i<=7; i++){
+            if(legalerZug({zeile,spalte},{zeile:h,spalte:i}) && regelnErfuellt({zeile,spalte},{zeile:h,spalte:i}) )geht = 0
+            }
           }
         }
       })
     })
-  }
+  if(imSchach(farbe) && geht === null){return 1}
+    if(!imSchach(farbe) && geht === null){return 2}
   return geht
 }
  
 export function bewegeFigur(von: Position, nach: Position): boolean {
  if (!legalerZug(von, nach)) return false
  if (!regelnErfuellt(von,nach)) return false
- 
  const figur = figurAn(von)
 
   const vonReihe = brett[von.zeile]
@@ -110,6 +115,16 @@ export function bewegeFigur(von: Position, nach: Position): boolean {
   if (!figur || !vonReihe || !nachReihe) return false
   nachReihe[nach.spalte] = figur
   vonReihe[von.spalte] = null
+  if(figur?.typ === "B" && figur.farbe === "weiss" && nach.zeile===0){
+  
+  if(containerW && container){
+    bauerUmwandlung(containerW, nach, container)}
+}
+if(figur?.typ === "B" && figur.farbe === "schwarz"&& nach.zeile===7){
+  if(containerS && container){
+    
+    bauerUmwandlung(containerS, nach, container)}
+}
   return true
 }
 
@@ -161,6 +176,117 @@ export function abgewaehltFeld(container: HTMLElement, ausgewaehlt: Position): v
    if (figurAn(ausgewaehlt) && feldZeile){
       feldZeile?.classList.remove("gruen")
       }
-     }     
+     }  
+export function bauerUmwandlung(containerUm: HTMLElement, ausgewaehlt: Position ,containerBr: HTMLElement): void{
+  if(figurAn(ausgewaehlt)?.typ!== "B") return
+  istInUmwandlung = true
+  containerUm.innerHTML = ""
+  for(let h=0;h<4;h++){
+    const feldDiv = document.createElement("div")
+    feldDiv.classList.add("feld", h % 2 === 0 ? "hell" : "dunkel")
+    if(h===0){
+      if(figurAn(ausgewaehlt)?.farbe==="weiss"){
+      feldDiv.textContent = SYMBOLE["weiss"]["D"]
+      
+      }
+      else{
+      feldDiv.textContent = SYMBOLE["schwarz"]["D"]
+      }
+    }
+    if(h===1){
+      if(figurAn(ausgewaehlt)?.farbe==="weiss"){
+      feldDiv.textContent = SYMBOLE["weiss"]["T"]
+      }
+      else{
+      feldDiv.textContent = SYMBOLE["schwarz"]["T"]
+      }
+    }
+    if(h===2){
+      if(figurAn(ausgewaehlt)?.farbe==="weiss"){
+      feldDiv.textContent = SYMBOLE["weiss"]["L"]
+      }
+      else{
+      feldDiv.textContent = SYMBOLE["schwarz"]["L"]
+      }
+    }
+    if(h===3){
+      if(figurAn(ausgewaehlt)?.farbe==="weiss"){
+      feldDiv.textContent = SYMBOLE["weiss"]["S"]
+      }
+      else{
+      feldDiv.textContent = SYMBOLE["schwarz"]["S"]
+      }
+    }
+    containerUm.appendChild(feldDiv)
+  }
+   if (promotionHandler !== null) {
+        containerUm.removeEventListener("click", promotionHandler)
+    }
+     promotionHandler = promotebauer
+     containerUm.addEventListener("click", promotionHandler)
 
+  function promotebauer(event: MouseEvent,) {
+    const nachUm = brett[ausgewaehlt.zeile]
+    if(!nachUm)return
+    const ziel = event.target
+    if (!(ziel instanceof HTMLElement)) return
+    const feld = ziel.closest<HTMLElement>(".feld")
+    if (!feld) return
+    if(feld.dataset.zeile != null)return
+    if(feld.textContent === SYMBOLE["weiss"]["D"]){
+      let figur: Figur ={typ:"D",farbe:"weiss"}
+       nachUm[ausgewaehlt.spalte]= figur
+    }
+    if(feld.textContent === SYMBOLE["schwarz"]["D"]){
+      let figur: Figur ={typ:"D",farbe:"schwarz"}
+       nachUm[ausgewaehlt.spalte]= figur
+    }
+    if(feld.textContent === SYMBOLE["weiss"]["T"]){
+      let figur: Figur ={typ:"T",farbe:"weiss"}
+       nachUm[ausgewaehlt.spalte]= figur
+    }
+    if(feld.textContent === SYMBOLE["schwarz"]["T"]){
+      let figur: Figur ={typ:"T",farbe:"schwarz"}
+       nachUm[ausgewaehlt.spalte]= figur
+    }
+    if(feld.textContent === SYMBOLE["weiss"]["L"]){
+      let figur: Figur ={typ:"L",farbe:"weiss"}
+       nachUm[ausgewaehlt.spalte]= figur
+    }
+    if(feld.textContent === SYMBOLE["schwarz"]["L"]){
+      let figur: Figur ={typ:"L",farbe:"schwarz"}
+       nachUm[ausgewaehlt.spalte]= figur
+    }
+    if(feld.textContent === SYMBOLE["weiss"]["S"]){
+      let figur: Figur ={typ:"S",farbe:"weiss"}
+       nachUm[ausgewaehlt.spalte]= figur
+    }
+    if(feld.textContent === SYMBOLE["schwarz"]["S"]){
+      let figur: Figur ={typ:"S",farbe:"schwarz"}
+       nachUm[ausgewaehlt.spalte]= figur
+    }
+  
+    containerUm.innerHTML = ""
+    if(figurAn(ausgewaehlt)?.farbe==="weiss"){
+    if(istSchachmatt("schwarz")===1){
+      console.log("weiß hat gewonnen")
+    }
+    if(istSchachmatt("weiss")===2){
+      console.log("patt")
+    }
+}
+else{if(istSchachmatt("weiss")===1){
+      console.log("schwarz hat gewonnen")
+}
+    if(istSchachmatt("weiss")===2){
+      console.log("patt")
+    }
+}
+   istInUmwandlung = false
+   
+    containerUm.removeEventListener("click", promotionHandler!)
+        promotionHandler = null
+    zeichneBrett(containerBr)
+}
+}
 export type { Figur }
