@@ -35,7 +35,7 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
         console.log("weiß hat gewonnen")
         controller.abort();
        }
-       if(istSchachmatt("weiss")===2){
+       if(istSchachmatt("schwarz")===2){
        console.log("patt")
        controller.abort();
     }

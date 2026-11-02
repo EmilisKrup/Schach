@@ -271,7 +271,7 @@ export function bauerUmwandlung(containerUm: HTMLElement, ausgewaehlt: Position 
     if(istSchachmatt("schwarz")===1){
       console.log("weiß hat gewonnen")
     }
-    if(istSchachmatt("weiss")===2){
+    if(istSchachmatt("schwarz")===2){
       console.log("patt")
     }
 }
