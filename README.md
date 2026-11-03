@@ -26,7 +26,8 @@ TypeScript, HTML, CSS, Git, Vitest
 ├── tsconfig.json  
 ├── src/
 │   ├── types.ts:  Typen  
-│   ├── board.ts:  Spielbrett, Startaufstellung, Zeichnen des Bretts, Ausführen eines Zuges, Bauerumwandlung, Erkennung von Schach, Schachmatt und Patt  
+│   ├── board.ts:  Spielbrett, Startaufstellung, Zeichnen des Bretts, Ausführen eines Zuges, Bauerumwandlung, 
+│   │              Erkennung von Schach, Schachmatt und Patt  
 │   ├── regel.ts:  Zugregeln pro Figur  
 │   ├── move.ts:   Klickverarbeitung, Auswahl, Spieler am Zug  
 │   ├── index.ts:  Startpunkt, verbindet die Teile  
