@@ -28,7 +28,7 @@ TypeScript, HTML, CSS, Git, Vitest
 ├── README.md  
 ├── package.json  
 ├── package-lock.json  
-├── tsconfig.json
+├── tsconfig.json  
 ├── assets/: Screenshots  
 ├── src/  
 │&nbsp;&nbsp;&nbsp;├── types.ts:  Typen  
