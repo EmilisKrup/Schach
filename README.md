@@ -91,7 +91,7 @@ Ein bestandener Test erscheint mit einem grünen Häkchen. Bei einem fehlgeschla
 **Kurzfristig**
 
 - Rochade (FERTIG) 
-- Kleinere Verbesserungen an der Bedienung (z. B. Hervorheben möglicher Zielfelder, Meldung des Spielendes auf der Seite)  (IN BEARBEITUNG)
+- Kleinere Verbesserungen an der Bedienung (z. B. Hervorheben möglicher Zielfelder, Meldung des Spielendes auf der Seite)  (FERTIG)
 
 **Langfristig**
  
