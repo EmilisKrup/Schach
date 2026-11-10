@@ -18,6 +18,7 @@ Das Projekt setzt die Zugregeln für jede Figur um und erkennt Schach, Schachmat
 - (NEU) Visualisierung bewegbarer Felder
 
 ![Schach Spiel](assets/Screenshot%202026-11-03%20101929.png)
+![Schach Spiel](assets/Screenshot%202026-11-10%20111837.png)
 
 ## Technologien:
 
