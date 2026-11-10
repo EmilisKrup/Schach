@@ -4,7 +4,7 @@ Ein Schachspiel im Browser, geschrieben in TypeScript. Zwei Spieler spielen gege
   
 Das Projekt setzt die Zugregeln für jede Figur um und erkennt Schach, Schachmatt und Patt. Einige Sonderregeln fehlen noch (siehe Bekannte Einschränkungen).  
 
-[![Schach Spiel](assets/Screenshot%202026-11-03%20100312.png)]  
+![Schach Spiel](assets/Screenshot%202026-11-03%20100312.png)  
 
 ## Funktionen:
 
@@ -15,7 +15,7 @@ Das Projekt setzt die Zugregeln für jede Figur um und erkennt Schach, Schachmat
 - Erkennung von Schach, Schachmatt und Patt: Züge, die den eigenen König im Schach lassen, sind nicht erlaubt  
 - Bauernumwandlung mit Auswahl der neuen Figur (Dame, Turm, Läufer oder Springer)  
 
-[![Schach Spiel](assets/Screenshot%202026-11-03%20101929.png)]
+![Schach Spiel](assets/Screenshot%202026-11-03%20101929.png)
 
 ## Technologien:
 
@@ -28,7 +28,7 @@ TypeScript, HTML, CSS, Git, Vitest
 ├── README.md  
 ├── package.json  
 ├── package-lock.json  
-├── tsconfig.json
+├── tsconfig.json  
 ├── assets/: Screenshots  
 ├── src/  
 │&nbsp;&nbsp;&nbsp;├── types.ts:  Typen  
