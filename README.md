@@ -13,7 +13,9 @@ Das Projekt setzt die Zugregeln für jede Figur um und erkennt Schach, Schachmat
 - Zugregeln für Bauer, Turm, Läufer, Springer, Dame und König, inklusive Blockierung durch andere Figuren und Schlagen  
 - Abwechselnder Zug von Weiß und Schwarz  
 - Erkennung von Schach, Schachmatt und Patt: Züge, die den eigenen König im Schach lassen, sind nicht erlaubt  
-- Bauernumwandlung mit Auswahl der neuen Figur (Dame, Turm, Läufer oder Springer)  
+- Bauernumwandlung mit Auswahl der neuen Figur (Dame, Turm, Läufer oder Springer)
+- (NEU) kurzes sowie langes rochieren zwischen dem Turm und dem König
+- (NEU) Visualisierung bewegbarer Felder
 
 ![Schach Spiel](assets/Screenshot%202026-11-03%20101929.png)
 
@@ -31,14 +33,14 @@ TypeScript, HTML, CSS, Git, Vitest
 ├── tsconfig.json  
 ├── assets/: Screenshots  
 ├── src/  
-│&nbsp;&nbsp;&nbsp;├── types.ts:  Typen  
-│&nbsp;&nbsp;&nbsp;├── board.ts:  Spielbrett, Startaufstellung, Zeichnen des Bretts, Ausführen eines Zuges, Bauerumwandlung,  
-│&nbsp;&nbsp;&nbsp;│              Erkennung von Schach, Schachmatt und Patt  
-│&nbsp;&nbsp;&nbsp;├── regel.ts:  Zugregeln pro Figur  
-│&nbsp;&nbsp;&nbsp;├── move.ts:   Klickverarbeitung, Auswahl, Spieler am Zug  
-│&nbsp;&nbsp;&nbsp;├── index.ts:  Startpunkt, verbindet die Teile  
-│&nbsp;&nbsp;&nbsp;├── index.html: Webseite  
-│&nbsp;&nbsp;&nbsp;├── style.css: Darstellung  
+│&nbsp;&nbsp;&nbsp;├── types.ts:    Typen  
+│&nbsp;&nbsp;&nbsp;├── board.ts:    Spielbrett, Startaufstellung, Zeichnen des Bretts, Ausführen eines Zuges, Bauerumwandlung,  
+│&nbsp;&nbsp;&nbsp;├── pruefen.ts:  Erkennung von Schach, Schachmatt und Patt  
+│&nbsp;&nbsp;&nbsp;├── regel.ts:    Zugregeln pro Figur  
+│&nbsp;&nbsp;&nbsp;├── move.ts:     Klickverarbeitung, Auswahl, Spieler am Zug  
+│&nbsp;&nbsp;&nbsp;├── index.ts:    Startpunkt, verbindet die Teile  
+│&nbsp;&nbsp;&nbsp;├── index.html:  Webseite  
+│&nbsp;&nbsp;&nbsp;├── style.css:   Darstellung  
 │&nbsp;&nbsp;&nbsp;└── regel.test.ts: Tests  
 │       
 └── public/  
@@ -87,8 +89,8 @@ Ein bestandener Test erscheint mit einem grünen Häkchen. Bei einem fehlgeschla
 
 **Kurzfristig**
 
-- Rochade  
-- Kleinere Verbesserungen an der Bedienung (z. B. Hervorheben möglicher Zielfelder, Meldung des Spielendes auf der Seite)  
+- Rochade (FERTIG) 
+- Kleinere Verbesserungen an der Bedienung (z. B. Hervorheben möglicher Zielfelder, Meldung des Spielendes auf der Seite)  (IN BEARBEITUNG)
 
 **Langfristig**
  
