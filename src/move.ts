@@ -1,5 +1,6 @@
-import { bewegeFigur, figurAn, abgewaehltFeld, ausgewaehltFeld, istSchachmatt, istInUmwandlung } from "./board.js"
+import { bewegeFigur,  abgewaehltFeld, ausgewaehltFeld,  istInUmwandlung, bewegbareFelder } from "./board.js"
 import type { Position, Spielzug } from "./types.js"
+import { istSchachmatt, figurAn } from "./pruefen.js"
 const containers = document.getElementById("brett")
  
 let ausgewaehlt: Position | null = null
@@ -23,7 +24,10 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
  
     if (ausgewaehlt === null) {
       if (figurAn(position) && figurAn(position)?.farbe === amSpielzug) ausgewaehlt = position
-      if(ausgewaehlt != null && containers)ausgewaehltFeld(containers, ausgewaehlt)
+      if(ausgewaehlt != null && containers){
+        ausgewaehltFeld(containers, ausgewaehlt)
+        bewegbareFelder(ausgewaehlt, container, 1)  
+      }
       return
     }
     if (ausgewaehlt.zeile !== zeile || ausgewaehlt.spalte !== spalte) {
@@ -53,7 +57,10 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
       }
     }
   }
-    if(containers)abgewaehltFeld(containers, ausgewaehlt)
+    if(containers){
+      abgewaehltFeld(containers, ausgewaehlt)
+      bewegbareFelder(ausgewaehlt, container, 0)
+    }
      ausgewaehlt = null
   },
     {signal: controller.signal} 

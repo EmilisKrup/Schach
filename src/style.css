@@ -45,8 +45,12 @@
 }
 .hell   { background: #f0d9b5; }
 .dunkel { background: #b58863; }
-.gruen   {background: rgb(25, 110, 25);}
- 
+.gruen  { background: rgb(25, 110, 25);}
+.rot    { background: rgb(126, 19, 19);
+          border: 1px solid #333;}
+.hellrot{ background: rgb(236, 6, 6);
+          border: 1px solid #333;} 
+
 #start{
   display: block;
   margin: 16px auto;

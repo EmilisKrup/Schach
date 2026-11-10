@@ -1,5 +1,6 @@
 import type { Position } from "./types.js"
-import { figurAn, wirdAngegriffen, rochade} from "./board.js"
+import { rochade} from "./board.js"
+import {figurAn, wirdAngegriffen} from "./pruefen.js"
 
 
 
