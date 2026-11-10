@@ -245,12 +245,10 @@ return geht = true
 }
 
 export function gehtRochade(von: Position): boolean{
-    console.log(rochade.turmWH)
     const figur = figurAn(von)
     let geht: boolean = false
     if(figur?.farbe === "schwarz"){
         if(rochade.turmSA === true){
-            console.log("hi")
             let h = structuredClone(von)
             for(h;h.spalte>=2; h.spalte--){
                 if(wirdAngegriffen(h, "weiss"))return geht
@@ -271,7 +269,6 @@ export function gehtRochade(von: Position): boolean{
         
     }
 }
-console.log(figur)
     if(figur?.farbe === "weiss"){
         if(rochade.turmWA === true){
             let h = structuredClone(von)
@@ -283,9 +280,7 @@ console.log(figur)
         
         
     }
-    console.log(rochade.turmWH)
         if(rochade.turmWH === true){
-            console.log("hi") 
             let h = structuredClone(von)
             for(h;h.spalte<=6; h.spalte++){
                 if(wirdAngegriffen(h, "schwarz"))return geht

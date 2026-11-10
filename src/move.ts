@@ -2,6 +2,8 @@ import { bewegeFigur,  abgewaehltFeld, ausgewaehltFeld,  istInUmwandlung, bewegb
 import type { Position, Spielzug } from "./types.js"
 import { istSchachmatt, figurAn } from "./pruefen.js"
 const containers = document.getElementById("brett")
+const dialog = document.getElementById("alert") as HTMLDialogElement | null;
+const resultat = document.getElementById("resultat") as HTMLParagraphElement | null;
  
 let ausgewaehlt: Position | null = null
 let amSpielzug: Spielzug = "weiss"
@@ -35,21 +37,25 @@ export function initKlicks(container: HTMLElement, neuZeichnen: () => void): voi
       neuZeichnen()
       
       if(amSpielzug==="weiss"){
-       if(istSchachmatt("schwarz")===1){ 
-        console.log("weiß hat gewonnen")
+       if(istSchachmatt("schwarz")===1 && dialog && resultat){ 
+        resultat.textContent ="Weiß hat gewonnen"
+        dialog.show()
         controller.abort();
        }
-       if(istSchachmatt("schwarz")===2){
-       console.log("patt")
+       if(istSchachmatt("schwarz")===2 && dialog && resultat){
+       resultat.textContent ="Patt"
+       dialog.show()
        controller.abort();
     }
       amSpielzug="schwarz" 
       } else{
-        if(istSchachmatt("weiss")===1){ 
-        console.log("schwarz hat gewonnen")
+        if(istSchachmatt("weiss")===1 && dialog && resultat){ 
+        resultat.textContent ="Schwarz hat gewonnen"
+        dialog.show()
         controller.abort();
-        }if(istSchachmatt("weiss")===2){
-        console.log("patt")
+        }if(istSchachmatt("weiss")===2 && dialog && resultat){
+        resultat.textContent ="Patt"
+        dialog.show()
         controller.abort();
     }
        amSpielzug="weiss"
