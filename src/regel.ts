@@ -226,6 +226,18 @@ export function koenigMove(von: Position, nach: Position): boolean{
     let geht: boolean =false
     const diffZ = Math.abs(nach.zeile - von.zeile)
     const diffS = Math.abs(nach.spalte - von.spalte)
+    let h = structuredClone(von)
+                h.spalte -= 1
+                while(h.spalte>nach.spalte){
+                    if(figurAn(h))return geht
+                    h.spalte -= 1
+                }
+                h = structuredClone(von)
+                h.spalte += 1
+                while(h.spalte<nach.spalte){
+                    if(figurAn(h))return geht
+                     h.spalte += 1
+                }
     if (figurAn(nach)?.farbe === figur?.farbe) return geht
     if(diffZ>=2 || diffS>=2){
         if(diffZ === 0 && diffS === 2){

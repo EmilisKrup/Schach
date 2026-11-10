@@ -297,15 +297,18 @@ export function bewegbareFelder(ausgewaehlt: Position, container: HTMLElement, z
       if(legalerZug(ausgewaehlt,{zeile: zeile, spalte: spalte}) && regelnErfuellt(ausgewaehlt,{zeile: zeile, spalte: spalte})){
         const feldZeile = container.querySelector(`[data-zeile="${String(zeile)}"][data-spalte="${String(spalte)}"]`)
         if(figur && figur.farbe != figurAn(ausgewaehlt)?.farbe && zustand === 1){
-          feldZeile?.classList.add("rot")
+          const kreis = document.createElement("div");
+           kreis.classList.add("rot");
+           feldZeile?.appendChild(kreis);
         }
         else{ if(!figur && zustand === 1){
-          feldZeile?.classList.add("hellrot")
+          const kreis = document.createElement("div");
+           kreis.classList.add("hellrot");
+           feldZeile?.appendChild(kreis);
         }
       }
       if(zustand === 0){
-        feldZeile?.classList.remove("rot")
-        feldZeile?.classList.remove("hellrot")
+        if(feldZeile)feldZeile.innerHTML=""
       }
       }
     })
