@@ -1,10 +1,16 @@
-import { /*Bauer,*/ type Brett, type Farbe, type Feld, type Figur, type FigurType, type Position } from "./types.js"
-import { turmMove, bauerMove ,laeuferMove, springerMove, dameMove, koenigMove } from "./regel.js"
+import { /*Bauer,*/ type Brett, type Farbe, type Feld, type Figur, type FigurType, type Position, type Rochade } from "./types.js"
+import { turmMove, bauerMove ,laeuferMove, springerMove, dameMove, koenigMove, gehtRochade } from "./regel.js"
  
 const containerW = document.getElementById("bauerUmWeiss")
 const containerS = document.getElementById("bauerUmSchwarz")
 const container = document.getElementById("brett")
 export let istInUmwandlung = false
+export let rochade: Rochade = {
+    turmWA: true,
+    turmWH: true,
+    turmSA: true,
+    turmSH: true
+}
 export const brett: Brett = startBrett()
 let promotionHandler: ((event: MouseEvent) => void) | null = null
  
@@ -109,12 +115,16 @@ export function bewegeFigur(von: Position, nach: Position): boolean {
  if (!legalerZug(von, nach)) return false
  if (!regelnErfuellt(von,nach)) return false
  const figur = figurAn(von)
-
+ let rochieren: boolean = gehtRochade(von)
+if(figur?.typ === "K" && Math.abs(nach.spalte - von.spalte) === 2){
+  if(!rochieren) return false
+}
   const vonReihe = brett[von.zeile]
   const nachReihe = brett[nach.zeile]
   if (!figur || !vonReihe || !nachReihe) return false
   nachReihe[nach.spalte] = figur
   vonReihe[von.spalte] = null
+rochadeBewegen(von, nach, rochieren)
   if(figur?.typ === "B" && figur.farbe === "weiss" && nach.zeile===0){
   
   if(containerW && container){
@@ -126,6 +136,78 @@ if(figur?.typ === "B" && figur.farbe === "schwarz"&& nach.zeile===7){
     bauerUmwandlung(containerS, nach, container)}
 }
   return true
+}
+
+function rochadeBewegen(von:Position, nach: Position, rochadeGeht: boolean): void{
+    const figur = figurAn(nach)
+  if(figur?.typ === "K"){
+    if( Math.abs(nach.spalte - von.spalte) === 2){
+      console.log("hi")
+    if(rochadeGeht){
+      console.log("hi")
+      if(figur?.farbe === "schwarz"){
+        const vonTReihe = brett[0]
+        const nachTReihe = brett[0]
+        if(figurAn({zeile:0,spalte:0})?.typ==="T" && nach.spalte === 2){
+          const figurT = figurAn({zeile:0,spalte:0})
+          if (!figurT || !vonTReihe || !nachTReihe) return 
+          console.log("hi")
+          nachTReihe[3] = figurT
+          vonTReihe[0] = null
+          rochade.turmSA = false
+          rochade.turmSH = false
+        }
+        if(figurAn({zeile:0,spalte:7})?.typ==="T" && nach.spalte === 6){
+          const figurT = figurAn({zeile:0,spalte:7})
+          if (!figurT || !vonTReihe || !nachTReihe) return 
+          nachTReihe[5] = figurT
+          vonTReihe[7] = null
+          rochade.turmSH = false
+          rochade.turmSA = false
+        }
+    } 
+      if(figur?.farbe === "weiss"){
+        const vonTReihe = brett[7]
+        const nachTReihe = brett[7]
+        if(figurAn({zeile:7,spalte:0})?.typ==="T" && nach.spalte === 2){
+          const figurT = figurAn({zeile:7,spalte:0})
+          if (!figurT || !vonTReihe || !nachTReihe) return 
+          nachTReihe[3] = figurT
+          vonTReihe[0] = null
+          rochade.turmWA = false
+          rochade.turmWH = false
+        }
+        if(figurAn({zeile:7,spalte:7})?.typ==="T" && nach.spalte === 6){
+          const figurT = figurAn({zeile:7,spalte:7})
+          if (!figurT || !vonTReihe || !nachTReihe) return 
+          nachTReihe[5] = figurT
+          vonTReihe[7] = null
+          rochade.turmWH = false
+          rochade.turmWA = false
+        }
+    } 
+    }
+  }
+if(figur?.farbe === "weiss"){
+  rochade.turmWH = false
+  rochade.turmWA = false
+}
+if(figur?.farbe === "schwarz"){
+  rochade.turmSH = false
+  rochade.turmSA = false
+}
+
+
+}
+if(figur?.farbe === "schwarz"){
+        if(von.zeile === 0 && von.spalte === 0)rochade.turmSA = false
+        if(von.zeile === 0 && von.spalte === 7)rochade.turmSH = false
+    } 
+  if(figur?.farbe === "weiss"){
+        if(von.zeile === 7 && von.spalte === 0)rochade.turmWA = false
+        if(von.zeile === 7 && von.spalte === 7)rochade.turmWH = false
+    } 
+
 }
 
 export function findeKoenig(farbe: Farbe): Position | null{

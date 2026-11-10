@@ -1,5 +1,7 @@
 import type { Position } from "./types.js"
-import { figurAn } from "./board.js"
+import { figurAn, wirdAngegriffen, rochade} from "./board.js"
+
+
 
 export function bauerMove(von: Position, nach: Position): boolean{
     const figur = figurAn(von)
@@ -53,6 +55,7 @@ export function bauerMove(von: Position, nach: Position): boolean{
 }
 
 export function turmMove(von: Position, nach: Position): boolean{
+    
 const figur = figurAn(von)
     let geht: boolean =false
             if (nach.spalte != von.spalte && nach.zeile != von.zeile)return geht
@@ -82,7 +85,6 @@ const figur = figurAn(von)
                 }
             if (figurAn(nach)?.farbe === figur?.farbe) return geht
                 
-            
     return geht = true
 }
 
@@ -223,10 +225,75 @@ export function koenigMove(von: Position, nach: Position): boolean{
     let geht: boolean =false
     const diffZ = Math.abs(nach.zeile - von.zeile)
     const diffS = Math.abs(nach.spalte - von.spalte)
-    if(diffZ>=2 || diffS>=2)return geht
     if (figurAn(nach)?.farbe === figur?.farbe) return geht
-
-
+    if(diffZ>=2 || diffS>=2){
+        if(diffZ === 0 && diffS === 2){
+           if(figur?.farbe === "weiss"){
+            if(rochade.turmWH === false) return geht
+            if(rochade.turmWA === false) return geht
+            }
+            if(figur?.farbe === "schwarz"){
+            if(rochade.turmSH === false) return geht
+            if(rochade.turmSA === false) return geht
+            }
+        }
+        else return geht
+    }
+    
 return geht = true
+}
+
+export function gehtRochade(von: Position): boolean{
+    console.log(rochade.turmWH)
+    const figur = figurAn(von)
+    let geht: boolean = false
+    if(figur?.farbe === "schwarz"){
+        if(rochade.turmSA === true){
+            console.log("hi")
+            let h = structuredClone(von)
+            for(h;h.spalte>=2; h.spalte--){
+                if(wirdAngegriffen(h, "weiss"))return geht
+            }
+            
+            return geht =true 
+        
+        
+    }
+        if(rochade.turmSH === true){ 
+            let h = structuredClone(von)
+            for(h;h.spalte<=6; h.spalte++){
+                if(wirdAngegriffen(h, "weiss"))return geht
+            }
+            
+            return geht = true
+        
+        
+    }
+}
+console.log(figur)
+    if(figur?.farbe === "weiss"){
+        if(rochade.turmWA === true){
+            let h = structuredClone(von)
+            for(h;h.spalte>=2; h.spalte--){
+                if(wirdAngegriffen(h, "schwarz"))return geht
+            }
+            
+            return geht =true
+        
+        
+    }
+    console.log(rochade.turmWH)
+        if(rochade.turmWH === true){
+            console.log("hi") 
+            let h = structuredClone(von)
+            for(h;h.spalte<=6; h.spalte++){
+                if(wirdAngegriffen(h, "schwarz"))return geht
+            }
+            
+            return geht = true
+        
+        }
+    }
+    return geht
 }
 
