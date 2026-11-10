@@ -9,7 +9,7 @@ if (container && startButton) {
   const neuZeichnen = () => zeichneBrett(container)
   
  
-  initKlicks(container, neuZeichnen)          // nur EINMAL anmelden
+  initKlicks(container, neuZeichnen)          
  
   startButton.addEventListener("click", () => {
     neuesSpiel()
