@@ -1,6 +1,8 @@
 import { /*Bauer,*/ type Brett, type Farbe, type Feld, type Figur, type FigurType, type Position, type Rochade } from "./types.js"
 import {gehtRochade } from "./regel.js"
 import { figurAn, regelnErfuellt, legalerZug, istSchachmatt } from "./pruefen.js"
+const dialog = document.getElementById("alert") as HTMLDialogElement | null;
+const resultat = document.getElementById("resultat") as HTMLParagraphElement | null;
  
 const containerW = document.getElementById("bauerUmWeiss")
 const containerS = document.getElementById("bauerUmSchwarz")
@@ -186,37 +188,20 @@ export function bauerUmwandlung(containerUm: HTMLElement, ausgewaehlt: Position 
     const feldDiv = document.createElement("div")
     feldDiv.classList.add("feld", h % 2 === 0 ? "hell" : "dunkel")
     if(h===0){
-      if(figurAn(ausgewaehlt)?.farbe==="weiss"){
-      feldDiv.textContent = SYMBOLE["weiss"]["D"]
-      
-      }
-      else{
-      feldDiv.textContent = SYMBOLE["schwarz"]["D"]
-      }
+      figurAn(ausgewaehlt)?.farbe==="weiss" ? 
+      feldDiv.textContent = SYMBOLE["weiss"]["D"] : feldDiv.textContent = SYMBOLE["schwarz"]["D"]
     }
     if(h===1){
-      if(figurAn(ausgewaehlt)?.farbe==="weiss"){
-      feldDiv.textContent = SYMBOLE["weiss"]["T"]
-      }
-      else{
-      feldDiv.textContent = SYMBOLE["schwarz"]["T"]
-      }
+      figurAn(ausgewaehlt)?.farbe==="weiss"? 
+      feldDiv.textContent = SYMBOLE["weiss"]["T"] : feldDiv.textContent = SYMBOLE["schwarz"]["T"]
     }
     if(h===2){
-      if(figurAn(ausgewaehlt)?.farbe==="weiss"){
-      feldDiv.textContent = SYMBOLE["weiss"]["L"]
-      }
-      else{
-      feldDiv.textContent = SYMBOLE["schwarz"]["L"]
-      }
+      figurAn(ausgewaehlt)?.farbe==="weiss"? 
+      feldDiv.textContent = SYMBOLE["weiss"]["L"] : feldDiv.textContent = SYMBOLE["schwarz"]["L"]
     }
     if(h===3){
-      if(figurAn(ausgewaehlt)?.farbe==="weiss"){
-      feldDiv.textContent = SYMBOLE["weiss"]["S"]
-      }
-      else{
-      feldDiv.textContent = SYMBOLE["schwarz"]["S"]
-      }
+      figurAn(ausgewaehlt)?.farbe==="weiss"? 
+      feldDiv.textContent = SYMBOLE["weiss"]["S"] : feldDiv.textContent = SYMBOLE["schwarz"]["S"]
     }
     containerUm.appendChild(feldDiv)
   }
@@ -268,19 +253,24 @@ export function bauerUmwandlung(containerUm: HTMLElement, ausgewaehlt: Position 
     }
   
     containerUm.innerHTML = ""
+    if(!dialog || !resultat) return
     if(figurAn(ausgewaehlt)?.farbe==="weiss"){
     if(istSchachmatt("schwarz")===1){
-      console.log("weiß hat gewonnen")
+       resultat.textContent ="Weiß hat gewonnen"
+        dialog.show()
     }
     if(istSchachmatt("schwarz")===2){
-      console.log("patt")
+       resultat.textContent ="Patt"
+        dialog.show()
     }
 }
 else{if(istSchachmatt("weiss")===1){
-      console.log("schwarz hat gewonnen")
+       resultat.textContent ="Schwarz hat gewonnen"
+        dialog.show()
 }
     if(istSchachmatt("weiss")===2){
-      console.log("patt")
+       resultat.textContent ="Patt"
+        dialog.show()
     }
 }
    istInUmwandlung = false
@@ -308,7 +298,8 @@ export function bewegbareFelder(ausgewaehlt: Position, container: HTMLElement, z
         }
       }
       if(zustand === 0){
-        if(feldZeile)feldZeile.innerHTML=""
+        const kreis = feldZeile?.querySelector(".rot, .hellrot");
+        kreis?.remove();
       }
       }
     })

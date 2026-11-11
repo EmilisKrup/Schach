@@ -12,12 +12,7 @@ export function bauerMove(von: Position, nach: Position): boolean{
                       if(nach.zeile <= von.zeile - 3)return geht
                       if(von.zeile!=6 && nach.zeile <= von.zeile - 2) return geht
                       if(von.zeile===6){
-                        let h = structuredClone(von)
-                        h.zeile -= 1
-                        while(h.zeile>nach.zeile){
-                            if(figurAn(h))return geht
-                            h.zeile -= 1
-                        }
+                        if(!figurenUeberspringen(von, nach)) return geht
                       }
                       if(figurAn(nach)){
                           if(figurAn(nach)?.farbe=="weiss")return geht
@@ -34,12 +29,7 @@ export function bauerMove(von: Position, nach: Position): boolean{
                       if(nach.zeile >= von.zeile + 3) return geht
                       if(von.zeile!=1 && nach.zeile >= von.zeile + 2) return geht
                       if(von.zeile===1){
-                        let h = structuredClone(von)
-                        h.zeile += 1
-                        while(h.zeile<nach.zeile){
-                            if(figurAn(h))return geht
-                            h.zeile += 1
-                        }
+                        if(!figurenUeberspringen(von, nach)) return geht
                     }
                       if(figurAn(nach)){
                           if(figurAn(nach)?.farbe=="schwarz")return geht
@@ -55,35 +45,11 @@ export function bauerMove(von: Position, nach: Position): boolean{
     return geht = true
 }
 
-export function turmMove(von: Position, nach: Position): boolean{
-    
+export function turmMove(von: Position, nach: Position): boolean{   
 const figur = figurAn(von)
     let geht: boolean =false
             if (nach.spalte != von.spalte && nach.zeile != von.zeile)return geht
-                let h = structuredClone(von)
-                h.zeile -= 1
-                while(h.zeile>nach.zeile){
-                    if(figurAn(h))return geht
-                    h.zeile -= 1
-                }
-                h = structuredClone(von)
-                h.zeile += 1
-                while(h.zeile<nach.zeile){
-                    if(figurAn(h))return geht
-                     h.zeile += 1
-                }
-                h = structuredClone(von)
-                h.spalte -= 1
-                while(h.spalte>nach.spalte){
-                    if(figurAn(h))return geht
-                    h.spalte -= 1
-                }
-                h = structuredClone(von)
-                h.spalte += 1
-                while(h.spalte<nach.spalte){
-                    if(figurAn(h))return geht
-                     h.spalte += 1
-                }
+                if(!figurenUeberspringen(von, nach)) return geht
             if (figurAn(nach)?.farbe === figur?.farbe) return geht
                 
     return geht = true
@@ -96,42 +62,10 @@ export function laeuferMove(von: Position, nach: Position): boolean{
     const diffS = Math.abs(nach.spalte - von.spalte)
     if(diffZ != diffS) return geht
     
-    let h = structuredClone(von)
-    h.spalte -=1
-    h.zeile -= 1
-    while(h.zeile>nach.zeile && h.spalte>nach.spalte){
-        if(figurAn(h))return geht
-        h.spalte -= 1
-        h.zeile -= 1
-    }
-    h = structuredClone(von)
-    h.spalte +=1
-    h.zeile -= 1
-    while(h.zeile>nach.zeile && h.spalte<nach.spalte){
-        if(figurAn(h))return geht
-        h.spalte += 1
-        h.zeile -= 1
-    }
-    h = structuredClone(von)
-    h.spalte -=1
-    h.zeile += 1
-    while(h.zeile<nach.zeile && h.spalte>nach.spalte){
-        if(figurAn(h))return geht
-        h.spalte -= 1
-        h.zeile += 1
-    }
-    h = structuredClone(von)
-    h.spalte +=1
-    h.zeile += 1
-    while(h.zeile<nach.zeile && h.spalte<nach.spalte){
-        if(figurAn(h))return geht
-        h.spalte += 1
-        h.zeile += 1
-    }
+    if(!figurenUeberspringen(von, nach))return geht
 
         if (figurAn(nach)?.farbe === figur?.farbe) return geht
-    return geht = true
-    
+    return geht = true  
 }
 
 export function springerMove(von: Position, nach: Position): boolean{
@@ -151,93 +85,25 @@ export function springerMove(von: Position, nach: Position): boolean{
     if (figurAn(nach)?.farbe === figur?.farbe) return geht
     return geht = true
 }
+
 export function dameMove(von: Position, nach: Position): boolean{
     const figur = figurAn(von)
     let geht: boolean =false
     const diffZ = Math.abs(nach.zeile - von.zeile)
     const diffS = Math.abs(nach.spalte - von.spalte)
     if(diffZ != diffS && nach.spalte != von.spalte && nach.zeile != von.zeile) return geht
-    if(nach.spalte === von.spalte || nach.zeile === von.zeile){
-        let h = structuredClone(von)
-        h.zeile -= 1
-        while(h.zeile>nach.zeile){
-            if(figurAn(h))return geht
-            h.zeile -= 1
-        }
-        h = structuredClone(von)
-        h.zeile += 1
-        while(h.zeile<nach.zeile){
-            if(figurAn(h))return geht
-            h.zeile += 1
-        }
-        h = structuredClone(von)
-        h.spalte -= 1
-        while(h.spalte>nach.spalte){
-            if(figurAn(h))return geht
-            h.spalte -= 1
-        }
-        h = structuredClone(von)
-        h.spalte += 1
-        while(h.spalte<nach.spalte){
-            if(figurAn(h))return geht
-            h.spalte += 1
-        }
-    }
-    if(diffZ === diffS){
-        let h = structuredClone(von)
-        h.spalte -=1
-        h.zeile -= 1
-        while(h.zeile>nach.zeile && h.spalte>nach.spalte){
-            if(figurAn(h))return geht
-            h.spalte -= 1
-            h.zeile -= 1
-        }
-        h = structuredClone(von)
-        h.spalte +=1
-        h.zeile -= 1
-        while(h.zeile>nach.zeile && h.spalte<nach.spalte){
-            if(figurAn(h))return geht
-            h.spalte += 1
-            h.zeile -= 1
-        }
-        h = structuredClone(von)
-        h.spalte -=1
-        h.zeile += 1
-        while(h.zeile<nach.zeile && h.spalte>nach.spalte){
-            if(figurAn(h))return geht
-            h.spalte -= 1
-            h.zeile += 1
-        }
-        h = structuredClone(von)
-        h.spalte +=1
-        h.zeile += 1
-        while(h.zeile<nach.zeile && h.spalte<nach.spalte){
-            if(figurAn(h))return geht
-            h.spalte += 1
-            h.zeile += 1
-        }
-    }    
+    if(!figurenUeberspringen(von, nach))return geht
     if (figurAn(nach)?.farbe === figur?.farbe) return geht
 
 return geht = true
 }
+
 export function koenigMove(von: Position, nach: Position): boolean{
     const figur = figurAn(von)
     let geht: boolean =false
     const diffZ = Math.abs(nach.zeile - von.zeile)
     const diffS = Math.abs(nach.spalte - von.spalte)
-    let h = structuredClone(von)
-                h.spalte -= 1
-                while(h.spalte>nach.spalte){
-                    if(figurAn(h))return geht
-                    h.spalte -= 1
-                }
-                h = structuredClone(von)
-                h.spalte += 1
-                while(h.spalte<nach.spalte){
-                    if(figurAn(h))return geht
-                     h.spalte += 1
-                }
+    if(!figurenUeberspringen(von, nach))return geht
     if (figurAn(nach)?.farbe === figur?.farbe) return geht
     if(diffZ>=2 || diffS>=2){
         if(diffZ === 0 && diffS === 2){
@@ -252,7 +118,6 @@ export function koenigMove(von: Position, nach: Position): boolean{
         }
         else return geht
     }
-    
 return geht = true
 }
 
@@ -265,20 +130,14 @@ export function gehtRochade(von: Position): boolean{
             for(h;h.spalte>=2; h.spalte--){
                 if(wirdAngegriffen(h, "weiss"))return geht
             }
-            
-            return geht =true 
-        
-        
+            return geht =true        
     }
         if(rochade.turmSH === true){ 
             let h = structuredClone(von)
             for(h;h.spalte<=6; h.spalte++){
                 if(wirdAngegriffen(h, "weiss"))return geht
             }
-            
             return geht = true
-        
-        
     }
 }
     if(figur?.farbe === "weiss"){
@@ -289,19 +148,84 @@ export function gehtRochade(von: Position): boolean{
             }
             
             return geht =true
-        
-        
     }
         if(rochade.turmWH === true){
             let h = structuredClone(von)
             for(h;h.spalte<=6; h.spalte++){
                 if(wirdAngegriffen(h, "schwarz"))return geht
             }
-            
             return geht = true
-        
         }
     }
     return geht
 }
 
+function figurenUeberspringen(von: Position, nach: Position): boolean{
+    const diffZ = Math.abs(nach.zeile - von.zeile)
+    const diffS = Math.abs(nach.spalte - von.spalte)
+    if(figurAn(von)?.typ ==="D" || figurAn(von)?.typ ==="L"){
+        if(diffS === diffZ){
+            let h = structuredClone(von)
+        h.spalte -=1
+        h.zeile -= 1
+        while(h.zeile>nach.zeile && h.spalte>nach.spalte){
+            if(figurAn(h))return false
+            h.spalte -= 1
+            h.zeile -= 1
+        }
+        h = structuredClone(von)
+        h.spalte +=1
+        h.zeile -= 1
+        while(h.zeile>nach.zeile && h.spalte<nach.spalte){
+            if(figurAn(h))return false
+            h.spalte += 1
+            h.zeile -= 1
+        }
+        h = structuredClone(von)
+        h.spalte -=1
+        h.zeile += 1
+        while(h.zeile<nach.zeile && h.spalte>nach.spalte){
+            if(figurAn(h))return false
+            h.spalte -= 1
+            h.zeile += 1
+        }
+        h = structuredClone(von)
+        h.spalte +=1
+        h.zeile += 1
+        while(h.zeile<nach.zeile && h.spalte<nach.spalte){
+            if(figurAn(h))return false
+            h.spalte += 1
+            h.zeile += 1
+        }
+        return true
+        }
+    }
+        if(figurAn(von)?.typ ==="D" || figurAn(von)?.typ ==="T" || figurAn(von)?.typ ==="B" || figurAn(von)?.typ=== "K"){
+        let h = structuredClone(von)
+        h.zeile -= 1
+        while(h.zeile>nach.zeile){
+            if(figurAn(h))return false
+            h.zeile -= 1
+        }
+        h = structuredClone(von)
+        h.zeile += 1
+        while(h.zeile<nach.zeile){
+            if(figurAn(h))return false
+            h.zeile += 1
+        }
+        h = structuredClone(von)
+        h.spalte -= 1
+        while(h.spalte>nach.spalte){
+            if(figurAn(h))return false
+            h.spalte -= 1
+        }
+        h = structuredClone(von)
+        h.spalte += 1
+        while(h.spalte<nach.spalte){
+            if(figurAn(h))return false
+            h.spalte += 1
+        }
+        return true
+    }
+    return false
+}

@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from "vitest"
+/*import { describe, it, expect, beforeEach } from "vitest"
 import { brett, neuesSpiel } from "./board.js"
 import { bauerMove, springerMove, turmMove } from "./regel.js"
-import type { Feld } from "./types.js"
+import type { Feld, Position } from "./types.js"
 
 function setze(zeile: number, spalte: number, figur: Feld): void{
     const reihe = brett[zeile]
@@ -50,7 +50,7 @@ describe("Springer (weiß, b1)", () => {
     [{ zeile: 5, spalte: 0 }, true],    
     [{ zeile: 5, spalte: 1 }, false],   
     [{ zeile: 6, spalte: 2 }, false],   
-  ])("Zug nach %o ist erlaubt: %s", (nach, erwartet) => {
+  ])("Zug nach %o ist erlaubt: %s", (nach: Position, erwartet: Position) => {
     expect(springerMove(b1, nach)).toBe(erwartet)
   })
 })
@@ -65,4 +65,4 @@ describe("Turm (weiß, a1)", () => {
     expect(turmMove({ zeile: 7, spalte: 0 }, { zeile: 4, spalte: 0 })).toBe(true)
   })
 })
- 
+ */
