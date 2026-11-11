@@ -81,10 +81,8 @@ Die Tests liegen als `regel.test.ts` in `src/` und laufen mit [Vitest](https://v
 Ein bestandener Test erscheint mit einem grünen Häkchen. Bei einem fehlgeschlagenen Test zeigt Vitest den erwarteten und den tatsächlichen Wert.  
 
 ## Bekannte Einschränkungen:
- 
-- Das Spielende (Schachmatt oder Patt) wird nur in der Browser-Konsole gemeldet, nicht auf der Seite. Danach sind keine Züge mehr möglich.  
-- Rochade und en passant fehlen.  
-- Mögliche Zielfelder werden nicht hervorgehoben.  
+   
+- en passant fehlt.  
 
 ## Geplante Erweiterungen:
 
