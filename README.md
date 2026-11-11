@@ -81,7 +81,8 @@ Die Tests liegen als `regel.test.ts` in `src/` und laufen mit [Vitest](https://v
 Ein bestandener Test erscheint mit einem grünen Häkchen. Bei einem fehlgeschlagenen Test zeigt Vitest den erwarteten und den tatsächlichen Wert.  
 
 ## Bekannte Einschränkungen:
-   
+
+- (UPDATE)Rochade funktioniert, trotz der Bedrohung durch andere Figuren zwischen dem König und dem Turm.  
 - en passant fehlt.  
 
 ## Geplante Erweiterungen:
